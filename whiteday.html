@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>To Risa — 300 Days Among the Stars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void: #050510;
+  --deep: #080820;
+  --nebula-blue: #1a1a4e;
+  --nebula-purple: #2d1b4e;
+  --star-white: #e8e4f0;
+  --cosmic-rose: #d4769a;
+  --soft-pink: #e8a0be;
+  --warm-gold: #d4a866;
+  --pale-gold: #f0d8a8;
+  --ice-blue: #8ec8e8;
+  --deep-rose: #b85580;
+  --text-primary: #e0dce8;
+  --text-secondary: #9898b8;
+  --text-dim: #686888;
+  --aquarius-cyan: #7ec8d8;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--void);
+  color: var(--text-primary);
+  font-family: 'Noto Serif JP', serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#scroll-bar {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
+  background: linear-gradient(90deg, var(--aquarius-cyan), var(--cosmic-rose), var(--warm-gold));
+  transition: width 0.08s linear;
+  box-shadow: 0 0 12px rgba(126,200,216,0.4);
+}
+
+.cursor-star {
+  position: fixed; pointer-events: none; z-index: 9998;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--star-white);
+  box-shadow: 0 0 6px rgba(232,228,240,0.6);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  position: relative; width: 100%; height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  overflow: hidden;
+}
+
+#cosmos-canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 0;
+}
+
+.nebula-layer {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: 1;
+}
+
+.nebula-1 {
+  background: radial-gradient(ellipse at 25% 40%, rgba(126,200,216,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 60%, rgba(212,118,154,0.05) 0%, transparent 50%);
+}
+
+.nebula-2 {
+  background: radial-gradient(ellipse at 60% 30%, rgba(45,27,78,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 70%, rgba(26,26,78,0.25) 0%, transparent 55%);
+}
+
+.hero-content {
+  position: relative; z-index: 3; text-align: center;
+  opacity: 0; animation: cosmicFadeIn 3s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
+}
+
+@keyframes cosmicFadeIn {
+  0% { opacity: 0; transform: translateY(50px) scale(0.92); filter: blur(8px); }
+  60% { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.hero-constellation-label {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.65rem; letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: var(--aquarius-cyan);
+  margin-bottom: 1.5rem; opacity: 0.7;
+}
+
+.hero-names {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(1.6rem,3.5vw,2.8rem);
+  letter-spacing: 0.35em; color: var(--star-white);
+  margin-bottom: 0.6rem;
+}
+
+.hero-names .amp {
+  display: inline-block; font-style: italic;
+  color: var(--cosmic-rose); margin: 0 0.4em;
+  font-size: 0.75em;
+  animation: starPulse 4s ease-in-out infinite;
+}
+
+@keyframes starPulse {
+  0%,100% { opacity: 0.5; text-shadow: 0 0 10px rgba(212,118,154,0); }
+  50% { opacity: 1; text-shadow: 0 0 20px rgba(212,118,154,0.5); }
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(2.8rem,7vw,5.5rem);
+  line-height: 1.15; letter-spacing: 0.02em;
+  background: linear-gradient(135deg,
+    var(--ice-blue) 0%, var(--star-white) 25%,
+    var(--pale-gold) 50%, var(--cosmic-rose) 75%,
+    var(--aquarius-cyan) 100%);
+  background-size: 400% 400%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleShimmer 8s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes titleShimmer {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-subtitle {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 200; font-size: clamp(0.85rem,1.8vw,1.15rem);
+  color: var(--text-secondary); letter-spacing: 0.2em;
+  margin-top: 0.5rem;
+}
+
+.hero-date {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.75rem; color: var(--text-dim);
+  letter-spacing: 0.25em; margin-top: 2.5rem;
+}
+
+.scroll-cue {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%); z-index: 3;
+  text-align: center;
+  animation: cueBreathe 3s ease-in-out infinite;
+}
+
+.scroll-cue-text {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.6rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+.scroll-cue-line {
+  width: 1px; height: 40px; margin: 0 auto;
+  background: linear-gradient(180deg, var(--cosmic-rose), transparent);
+  opacity: 0.4;
+}
+
+@keyframes cueBreathe {
+  0%,100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.25; transform: translateX(-50%) translateY(8px); }
+}
+
+/* ═══ CONSTELLATION ═══ */
+#constellation-section {
+  position: relative; min-height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  padding: 6rem 2rem; overflow: hidden;
+}
+
+#constellation-canvas {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 0;
+}
+
+.constellation-content {
+  position: relative; z-index: 2; text-align: center;
+  max-width: 600px;
+  opacity: 0; transform: translateY(40px);
+  transition: all 1.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.constellation-content.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+.constellation-sign {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem,5vw,3.5rem);
+  color: var(--aquarius-cyan);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 30px rgba(126,200,216,0.3);
+}
+
+.constellation-name {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.7rem; letter-spacing: 0.5em;
+  text-transform: uppercase; color: var(--aquarius-cyan);
+  margin-bottom: 2rem; opacity: 0.7;
+}
+
+.constellation-text {
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300; font-size: clamp(0.95rem,1.8vw,1.1rem);
+  line-height: 2.4; color: var(--text-secondary);
+}
+
+.constellation-text em {
+  color: var(--aquarius-cyan);
+  font-style: normal; font-weight: 400;
+}
+
+/* ═══ MESSAGES ═══ */
+.msg-section {
+  position: relative; min-height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  padding: 6rem 2rem; overflow: hidden;
+}
+
+.msg-nebula {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0; transition: opacity 2s ease; pointer-events: none;
+}
+
+.msg-section.visible .msg-nebula { opacity: 1; }
+
+.msg-nebula-a { background: radial-gradient(ellipse at 20% 50%, rgba(126,200,216,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 40%, rgba(212,118,154,0.03) 0%, transparent 50%); }
+.msg-nebula-b { background: radial-gradient(ellipse at 70% 55%, rgba(212,168,102,0.04) 0%, transparent 55%), radial-gradient(ellipse at 20% 35%, rgba(45,27,78,0.08) 0%, transparent 50%); }
+.msg-nebula-c { background: radial-gradient(ellipse at 50% 50%, rgba(184,85,128,0.05) 0%, transparent 55%), radial-gradient(ellipse at 30% 70%, rgba(126,200,216,0.03) 0%, transparent 50%); }
+.msg-nebula-d { background: radial-gradient(ellipse at 40% 40%, rgba(212,118,154,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 65%, rgba(240,216,168,0.04) 0%, transparent 55%); }
+
+.msg-card {
+  max-width: 660px; text-align: center;
+  opacity: 0; transform: translateY(55px);
+  transition: opacity 1.4s cubic-bezier(0.16,1,0.3,1),
+              transform 1.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.msg-section.visible .msg-card { opacity: 1; transform: translateY(0); }
+
+.msg-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.65rem; letter-spacing: 0.6em;
+  color: var(--cosmic-rose); text-transform: uppercase;
+  margin-bottom: 2.5rem; opacity: 0.6;
+}
+
+.msg-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(1.6rem,3.8vw,2.6rem);
+  line-height: 1.5; margin-bottom: 2rem;
+  background: linear-gradient(135deg, var(--star-white), var(--cosmic-rose));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.msg-line {
+  width: 35px; height: 1px; margin: 0 auto 2.5rem;
+  background: linear-gradient(90deg, transparent, var(--cosmic-rose), transparent);
+  opacity: 0.4;
+}
+
+.msg-body {
+  font-weight: 300; font-size: clamp(0.92rem,1.7vw,1.05rem);
+  line-height: 2.3; color: var(--text-secondary); letter-spacing: 0.01em;
+}
+
+.msg-body em {
+  font-style: italic; color: var(--soft-pink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+}
+
+/* ═══ QUIZ GATE ═══ */
+#quiz-gate {
+  position: relative; min-height: 50vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 4rem 2rem;
+}
+
+.gate-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(1.4rem,3.5vw,2.4rem);
+  background: linear-gradient(135deg, var(--warm-gold), var(--cosmic-rose));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0; transform: translateY(25px);
+  transition: all 1s ease;
+}
+
+.gate-sub {
+  font-weight: 200; font-size: 0.9rem;
+  color: var(--text-dim); letter-spacing: 0.12em;
+  margin-top: 1rem;
+  opacity: 0; transform: translateY(15px);
+  transition: all 1s ease 0.3s;
+}
+
+#quiz-gate.visible .gate-title,
+#quiz-gate.visible .gate-sub { opacity: 1; transform: translateY(0); }
+
+/* ═══ QUIZ ═══ */
+#quiz-container {
+  position: relative; min-height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  padding: 4rem 2rem;
+  background: radial-gradient(ellipse at 50% 50%, rgba(20,15,40,1) 0%, var(--void) 100%);
+}
+
+.quiz-box { max-width: 580px; width: 100%; text-align: center; }
+
+.quiz-progress { display: flex; gap: 10px; justify-content: center; margin-bottom: 3rem; }
+
+.q-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(126,200,216,0.15);
+  border: 1px solid rgba(126,200,216,0.2);
+  transition: all 0.6s ease;
+}
+.q-dot.active { background: var(--aquarius-cyan); box-shadow: 0 0 14px rgba(126,200,216,0.5); transform: scale(1.4); }
+.q-dot.done { background: var(--warm-gold); border-color: var(--warm-gold); box-shadow: 0 0 8px rgba(212,168,102,0.3); }
+
+.q-label {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.6rem; letter-spacing: 0.5em;
+  text-transform: uppercase; margin-bottom: 0.5rem; opacity: 0.5;
+}
+
+.q-category {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.55rem; letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem; border-radius: 20px;
+  display: inline-block; margin-bottom: 1.8rem;
+}
+
+.cat-love { color: var(--cosmic-rose); background: rgba(212,118,154,0.1); border: 1px solid rgba(212,118,154,0.2); }
+.cat-neuro { color: var(--aquarius-cyan); background: rgba(126,200,216,0.08); border: 1px solid rgba(126,200,216,0.2); }
+
+.q-text {
+  font-weight: 300; font-size: clamp(1.05rem,2.2vw,1.35rem);
+  line-height: 1.9; color: var(--text-primary); margin-bottom: 2.5rem;
+}
+
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+
+.q-opt {
+  padding: 1rem 1.4rem;
+  border: 1px solid rgba(126,200,216,0.1);
+  border-radius: 14px;
+  background: rgba(126,200,216,0.02);
+  color: var(--text-primary);
+  font-family: 'Noto Serif JP', serif;
+  font-weight: 300; font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative; overflow: hidden;
+  text-align: left;
+}
+
+.q-opt::after {
+  content: ''; position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(126,200,216,0.06), transparent);
+  transition: left 0.6s ease;
+}
+
+.q-opt:hover {
+  border-color: rgba(126,200,216,0.3);
+  background: rgba(126,200,216,0.06);
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(126,200,216,0.06);
+}
+
+.q-opt:hover::after { left: 100%; }
+
+.q-opt.correct {
+  border-color: var(--warm-gold);
+  background: rgba(212,168,102,0.12);
+  color: var(--pale-gold);
+  animation: correctGlow 0.7s ease;
+}
+
+.q-opt.wrong {
+  border-color: rgba(180,60,80,0.4);
+  background: rgba(180,60,80,0.08);
+  animation: wrongShake 0.5s ease;
+}
+
+@keyframes correctGlow {
+  0% { box-shadow: 0 0 0 rgba(212,168,102,0); }
+  50% { box-shadow: 0 0 30px rgba(212,168,102,0.2); }
+  100% { box-shadow: 0 0 10px rgba(212,168,102,0.05); }
+}
+
+@keyframes wrongShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.q-feedback {
+  margin-top: 1.5rem;
+  font-weight: 300; font-size: 0.88rem;
+  line-height: 1.8; color: var(--warm-gold);
+  opacity: 0; transform: translateY(8px);
+  transition: all 0.5s ease;
+}
+.q-feedback.show { opacity: 1; transform: translateY(0); }
+
+.q-next {
+  display: none; margin: 2rem auto 0;
+  padding: 0.7rem 2.2rem;
+  border: 1px solid rgba(212,118,154,0.3);
+  border-radius: 30px; background: transparent;
+  color: var(--cosmic-rose);
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.78rem; letter-spacing: 0.15em;
+  cursor: pointer; transition: all 0.4s ease;
+}
+.q-next:hover {
+  background: rgba(212,118,154,0.08);
+  box-shadow: 0 4px 18px rgba(212,118,154,0.1);
+  transform: translateY(-2px);
+}
+.q-next.show { display: inline-block; animation: fadeUp 0.5s ease; }
+
+/* ═══ MINI GAME ═══ */
+#game-section {
+  position: relative; min-height: 100vh;
+  display: none; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 2rem;
+  background: radial-gradient(ellipse at 50% 40%, rgba(15,10,35,1) 0%, var(--void) 100%);
+  overflow: hidden;
+}
+#game-section.show { display: flex; }
+
+.game-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(1.2rem,2.8vw,1.8rem);
+  color: var(--text-primary); margin-bottom: 0.4rem; text-align: center;
+}
+
+.game-desc {
+  font-weight: 200; font-size: 0.85rem;
+  color: var(--text-dim); margin-bottom: 2rem; text-align: center;
+}
+
+#game-wrap {
+  position: relative;
+  width: min(480px,88vw); height: min(380px,58vh);
+  border: 1px solid rgba(126,200,216,0.1);
+  border-radius: 18px; overflow: hidden;
+  background: rgba(5,5,16,0.9);
+  cursor: none;
+  box-shadow: 0 0 40px rgba(126,200,216,0.03);
+}
+
+#game-cv { width: 100%; height: 100%; display: block; }
+
+.game-hud {
+  margin-top: 1.5rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; color: var(--cosmic-rose);
+  letter-spacing: 0.1em; text-align: center;
+}
+.game-hud span { color: var(--warm-gold); font-size: 1.3rem; }
+
+#game-done {
+  display: none; text-align: center;
+  margin-top: 1.5rem; animation: fadeUp 0.8s ease;
+}
+#game-done p {
+  font-weight: 300; color: var(--warm-gold); font-size: 0.95rem; margin-bottom: 1rem;
+}
+
+/* ═══ FINALE ═══ */
+#finale {
+  position: relative; min-height: 100vh;
+  display: none; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 4rem 2rem; overflow: hidden;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(30,15,40,1) 0%, rgba(10,8,25,1) 50%, var(--void) 100%);
+}
+#finale.show { display: flex; }
+
+#petal-cv {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; z-index: 0;
+  pointer-events: none;
+}
+
+.finale-wrap {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 700px;
+  opacity: 0; transform: scale(0.88) translateY(35px);
+  animation: finaleReveal 2.5s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+
+@keyframes finaleReveal {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.finale-heart {
+  font-size: 3.5rem; margin-bottom: 2rem;
+  display: inline-block;
+  animation: heartBeat 1.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(212,118,154,0.4));
+}
+
+@keyframes heartBeat {
+  0%,100% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+  56% { transform: scale(1); }
+}
+
+.finale-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(2rem,5.5vw,3.8rem);
+  line-height: 1.35;
+  background: linear-gradient(135deg,
+    var(--ice-blue), var(--star-white), var(--pale-gold),
+    var(--cosmic-rose), var(--aquarius-cyan));
+  background-size: 400% 400%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleShimmer 6s ease-in-out infinite;
+  margin-bottom: 2.5rem;
+}
+
+.finale-msg {
+  font-weight: 300;
+  font-size: clamp(0.92rem,1.7vw,1.1rem);
+  line-height: 2.5; color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+.finale-msg strong { color: var(--soft-pink); font-weight: 400; }
+
+.finale-sig {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: 1.25rem; color: var(--warm-gold);
+  letter-spacing: 0.08em;
+  opacity: 0; animation: sigIn 1.5s ease 3s forwards;
+}
+
+.finale-eternal {
+  margin-top: 3rem;
+  font-weight: 200; font-size: 0.75rem;
+  color: var(--text-dim); letter-spacing: 0.35em;
+  opacity: 0; animation: sigIn 1.5s ease 4s forwards;
+}
+
+@keyframes sigIn { to { opacity: 0.8; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+  .msg-card, .constellation-content { padding: 0 0.3rem; }
+  .q-opt { padding: 0.85rem 1.1rem; font-size: 0.85rem; }
+  #game-wrap { height: min(320px,52vh); }
+}
+</style>
+</head>
+<body>
+
+<div id="scroll-bar"></div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="cosmos-canvas"></canvas>
+  <div class="nebula-layer nebula-1"></div>
+  <div class="nebula-layer nebula-2"></div>
+  <div class="hero-content">
+    <p class="hero-constellation-label">&#9810; Aquarius — みずがめ座</p>
+    <p class="hero-names">JUNSEOP <span class="amp">&amp;</span> RISA</p>
+    <h1 class="hero-title">300 Days<br>Among the Stars</h1>
+    <p class="hero-subtitle">星の海を越えて、君のもとへ</p>
+    <p class="hero-date">White Day — March 14, 2026</p>
+  </div>
+  <div class="scroll-cue">
+    <p class="scroll-cue-text">Scroll</p>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- CONSTELLATION -->
+<section id="constellation-section">
+  <canvas id="constellation-canvas"></canvas>
+  <div class="constellation-content">
+    <p class="constellation-sign">&#9810;</p>
+    <p class="constellation-name">Aquarius — 2008.02.06</p>
+    <p class="constellation-text">
+      理紗の星座、みずがめ座。<br>
+      知的で自由で、誰よりも優しい。<br><br>
+      宇宙の中で、<br>
+      何億もの星の中で、<br>
+      <em>僕が見つけた、たった一つの星。</em>
+    </p>
+  </div>
+</section>
+
+<!-- MESSAGE I -->
+<section class="msg-section">
+  <div class="msg-nebula msg-nebula-a"></div>
+  <div class="msg-card">
+    <p class="msg-num">I</p>
+    <h2 class="msg-heading">はじめて出会った日のこと</h2>
+    <div class="msg-line"></div>
+    <p class="msg-body">
+      ISEFの会場で初めて出会ったあの瞬間、<br>
+      心臓が止まるかと思った。<br><br>
+      たくさんの人がいたのに、<br>
+      理紗だけがまるで光っていた。<br><br>
+      あの日から、<br>
+      <em>僕の宇宙の中心は理紗になった。</em>
+    </p>
+  </div>
+</section>
+
+<!-- MESSAGE II -->
+<section class="msg-section">
+  <div class="msg-nebula msg-nebula-b"></div>
+  <div class="msg-card">
+    <p class="msg-num">II</p>
+    <h2 class="msg-heading">何気ない瞬間が、永遠になる</h2>
+    <div class="msg-line"></div>
+    <p class="msg-body">
+      深夜の長電話、くだらない話で笑い合った夜、<br>
+      言葉にならない沈黙さえ心地よかった。<br><br>
+      海を越えて、時差を超えて、<br>
+      それでも理紗の声を聞くだけで<br>
+      <em>世界は完璧になった。</em>
+    </p>
+  </div>
+</section>
+
+<!-- MESSAGE III -->
+<section class="msg-section">
+  <div class="msg-nebula msg-nebula-c"></div>
+  <div class="msg-card">
+    <p class="msg-num">III</p>
+    <h2 class="msg-heading">理紗がいるから、息ができる</h2>
+    <div class="msg-line"></div>
+    <p class="msg-body">
+      辛い時、不安な時、<br>
+      理紗の存在だけで僕は呼吸を取り戻した。<br><br>
+      君の笑顔が僕の酸素で、<br>
+      君の言葉が僕の重力。<br><br>
+      <em>理紗は僕にとって、宇宙そのもの。</em>
+    </p>
+  </div>
+</section>
+
+<!-- MESSAGE IV -->
+<section class="msg-section">
+  <div class="msg-nebula msg-nebula-d"></div>
+  <div class="msg-card">
+    <p class="msg-num">IV</p>
+    <h2 class="msg-heading">300日は、序章に過ぎない</h2>
+    <div class="msg-line"></div>
+    <p class="msg-body">
+      300日はまだ始まり。<br><br>
+      一緒に見たい星空がある。<br>
+      一緒に歩きたい道がある。<br>
+      一緒に重ねたい季節がある。<br><br>
+      <em>永遠に、理紗のそばにいたい。</em>
+    </p>
+  </div>
+</section>
+
+<!-- QUIZ GATE -->
+<section id="quiz-gate">
+  <p class="gate-title">でもその前に…</p>
+  <p class="gate-sub">僕たちの愛と科学のクイズ &#129504;&#9825;</p>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz-container">
+  <div class="quiz-box">
+    <div class="quiz-progress" id="quiz-dots"></div>
+    <div id="q-area"></div>
+  </div>
+</section>
+
+<!-- MINI GAME -->
+<section id="game-section">
+  <p class="game-title">&#10022; Last Mission &#10022;</p>
+  <p class="game-desc">落ちてくる星を10個集めて！<br>Catch 10 falling stars to unlock the final message</p>
+  <div id="game-wrap"><canvas id="game-cv"></canvas></div>
+  <p class="game-hud">Stars: <span id="star-count">0</span> / 10</p>
+  <div id="game-done">
+    <p>全部集めたね &#10022; おめでとう</p>
+    <button class="q-next show" id="finale-btn">最後のメッセージへ →</button>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section id="finale">
+  <canvas id="petal-cv"></canvas>
+  <div class="finale-wrap">
+    <div class="finale-heart">&#9829;</div>
+    <h2 class="finale-heading">理紗、愛してる。<br>心の底から。</h2>
+    <p class="finale-msg">
+      300日間、僕のそばにいてくれてありがとう。<br>
+      ホワイトデーに伝えたいことは、たった一つ。<br><br>
+      <strong>理紗は僕にとって、宇宙で一番大切な存在。</strong><br><br>
+      これからも、どんな星空の下でも、<br>
+      笑い合って、支え合って、<br>
+      二人だけの銀河を作っていこう。<br><br>
+      世界中のどこにいても、<br>
+      どれだけ距離が離れていても、<br>
+      <strong>僕の心はいつも理紗の隣にある。</strong>
+    </p>
+    <p class="finale-sig">— 永遠に愛を込めて、준섭より</p>
+    <p class="finale-eternal">これからも、ずっとずっと、ふたりで &#8734;</p>
+  </div>
+</section>
+
+<script>
+/* ══════════════════════════════════════
+   COSMOS CANVAS
+   ══════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('cosmos-canvas');
+  const c=cv.getContext('2d');
+  let W,H,stars=[],shooters=[],dpr;
+
+  function resize(){
+    dpr=window.devicePixelRatio||1;
+    W=window.innerWidth; H=window.innerHeight;
+    cv.width=W*dpr; cv.height=H*dpr;
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    c.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function makeStars(){
+    stars=[];
+    const n=Math.min(Math.floor((W*H)/2200),500);
+    for(let i=0;i<n;i++){
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.4+0.2,
+        a:Math.random()*0.6+0.4,
+        sp:Math.random()*0.001+0.0003,
+        ph:Math.random()*Math.PI*2,
+        hue:Math.random()>0.85?(Math.random()>0.5?'180,220,255':'255,200,180'):'230,226,240'
+      });
+    }
+  }
+
+  function draw(t){
+    c.clearRect(0,0,W,H);
+
+    const g1=c.createRadialGradient(W*0.3,H*0.4,0,W*0.3,H*0.4,W*0.5);
+    g1.addColorStop(0,'rgba(45,27,78,0.12)');
+    g1.addColorStop(1,'rgba(0,0,0,0)');
+    c.fillStyle=g1; c.fillRect(0,0,W,H);
+
+    const g2=c.createRadialGradient(W*0.75,H*0.55,0,W*0.75,H*0.55,W*0.4);
+    g2.addColorStop(0,'rgba(126,200,216,0.04)');
+    g2.addColorStop(1,'rgba(0,0,0,0)');
+    c.fillStyle=g2; c.fillRect(0,0,W,H);
+
+    for(const s of stars){
+      const tw=Math.sin(t*s.sp*1000+s.ph)*0.35+0.65;
+      c.beginPath(); c.arc(s.x,s.y,s.r,0,Math.PI*2);
+      c.fillStyle=`rgba(${s.hue},${s.a*tw})`; c.fill();
+      if(s.r>1){
+        c.beginPath(); c.arc(s.x,s.y,s.r*3,0,Math.PI*2);
+        c.fillStyle=`rgba(${s.hue},${s.a*tw*0.08})`; c.fill();
+      }
+    }
+
+    if(Math.random()<0.004){
+      shooters.push({
+        x:Math.random()*W*0.8+W*0.1, y:Math.random()*H*0.3,
+        vx:(Math.random()-0.3)*7, vy:Math.random()*4+2,
+        life:1, len:Math.random()*70+40
+      });
+    }
+    for(let i=shooters.length-1;i>=0;i--){
+      const s=shooters[i];
+      s.x+=s.vx; s.y+=s.vy; s.life-=0.013;
+      if(s.life<=0){shooters.splice(i,1);continue;}
+      c.beginPath();
+      c.moveTo(s.x,s.y);
+      c.lineTo(s.x-s.vx*(s.len/6),s.y-s.vy*(s.len/6));
+      const gr=c.createLinearGradient(s.x,s.y,s.x-s.vx*(s.len/6),s.y-s.vy*(s.len/6));
+      gr.addColorStop(0,`rgba(126,200,216,${s.life})`);
+      gr.addColorStop(0.5,`rgba(212,118,154,${s.life*0.5})`);
+      gr.addColorStop(1,'rgba(126,200,216,0)');
+      c.strokeStyle=gr; c.lineWidth=1.5; c.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize(); makeStars(); requestAnimationFrame(draw);
+  window.addEventListener('resize',()=>{resize();makeStars();});
+})();
+
+/* ══════════════════════════════════════
+   AQUARIUS CONSTELLATION
+   ══════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('constellation-canvas');
+  const c=cv.getContext('2d');
+  let W,H,dpr;
+
+  function resize(){
+    dpr=window.devicePixelRatio||1;
+    W=cv.parentElement.clientWidth;
+    H=cv.parentElement.clientHeight;
+    cv.width=W*dpr; cv.height=H*dpr;
+    cv.style.width=W+'px'; cv.style.height=H+'px';
+    c.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  const aqStars=[
+    {x:0.25,y:0.28},{x:0.32,y:0.25},{x:0.38,y:0.30},
+    {x:0.42,y:0.35},{x:0.48,y:0.38},{x:0.44,y:0.45},
+    {x:0.50,y:0.50},{x:0.56,y:0.48},{x:0.62,y:0.52},
+    {x:0.58,y:0.58},{x:0.64,y:0.62},{x:0.70,y:0.56},
+    {x:0.75,y:0.60},{x:0.72,y:0.68}
+  ];
+
+  const aqLines=[
+    [0,1],[1,2],[2,3],[3,4],[4,5],[5,6],
+    [6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[7,11]
+  ];
+
+  let bgStars=[], animProg=0, isVis=false;
+
+  function makeBg(){
+    bgStars=[];
+    for(let i=0;i<120;i++){
+      bgStars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*0.8+0.2,
+        a:Math.random()*0.3+0.1,
+        ph:Math.random()*Math.PI*2
+      });
+    }
+  }
+
+  function draw(t){
+    c.clearRect(0,0,W,H);
+
+    for(const s of bgStars){
+      const tw=Math.sin(t*0.001+s.ph)*0.3+0.7;
+      c.beginPath(); c.arc(s.x,s.y,s.r,0,Math.PI*2);
+      c.fillStyle=`rgba(230,226,240,${s.a*tw})`; c.fill();
+    }
+
+    if(isVis && animProg<1) animProg=Math.min(1,animProg+0.008);
+
+    if(animProg>0){
+      const pts=aqStars.map(s=>({x:s.x*W,y:s.y*H}));
+      const total=aqLines.length;
+      const drawn=Math.floor(animProg*total);
+
+      for(let i=0;i<drawn&&i<total;i++){
+        const [a,b]=aqLines[i];
+        c.beginPath(); c.moveTo(pts[a].x,pts[a].y); c.lineTo(pts[b].x,pts[b].y);
+        c.strokeStyle='rgba(126,200,216,0.25)'; c.lineWidth=1; c.stroke();
+      }
+
+      if(drawn<total){
+        const frac=(animProg*total)%1;
+        const [a,b]=aqLines[drawn];
+        c.beginPath(); c.moveTo(pts[a].x,pts[a].y);
+        c.lineTo(pts[a].x+(pts[b].x-pts[a].x)*frac, pts[a].y+(pts[b].y-pts[a].y)*frac);
+        c.strokeStyle='rgba(126,200,216,0.25)'; c.lineWidth=1; c.stroke();
+      }
+
+      const starsVis=Math.min(pts.length,Math.ceil(animProg*pts.length*1.5));
+      for(let i=0;i<starsVis&&i<pts.length;i++){
+        const p=pts[i];
+        c.beginPath(); c.arc(p.x,p.y,8,0,Math.PI*2);
+        c.fillStyle='rgba(126,200,216,0.08)'; c.fill();
+        c.beginPath(); c.arc(p.x,p.y,2.5,0,Math.PI*2);
+        c.fillStyle='rgba(126,200,216,0.8)'; c.fill();
+        c.beginPath(); c.arc(p.x,p.y,1,0,Math.PI*2);
+        c.fillStyle='rgba(220,245,255,0.9)'; c.fill();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize(); makeBg(); requestAnimationFrame(draw);
+
+  const obs=new IntersectionObserver(([e])=>{
+    if(e.isIntersecting){
+      isVis=true;
+      document.querySelector('.constellation-content').classList.add('visible');
+    }
+  },{threshold:0.3});
+  obs.observe(document.getElementById('constellation-section'));
+
+  window.addEventListener('resize',()=>{resize();makeBg();});
+})();
+
+/* ══════════ SCROLL PROGRESS ══════════ */
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY;
+  const d=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('scroll-bar').style.width=(s/d*100)+'%';
+});
+
+/* ══════════ INTERSECTION OBSERVER ══════════ */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.2});
+document.querySelectorAll('.msg-section, #quiz-gate').forEach(el=>io.observe(el));
+
+/* ══════════ CURSOR TRAIL (desktop) ══════════ */
+if(window.matchMedia('(pointer:fine)').matches){
+  const pool=[]; const N=12;
+  for(let i=0;i<N;i++){
+    const d=document.createElement('div');
+    d.className='cursor-star'; d.style.opacity='0';
+    document.body.appendChild(d);
+    pool.push({el:d,x:0,y:0});
+  }
+  let mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function anim(){
+    for(let i=pool.length-1;i>0;i--){pool[i].x=pool[i-1].x;pool[i].y=pool[i-1].y;}
+    pool[0].x=mx; pool[0].y=my;
+    pool.forEach((p,i)=>{
+      const r=1-i/N;
+      p.el.style.left=p.x+'px'; p.el.style.top=p.y+'px';
+      p.el.style.opacity=r*0.5;
+      p.el.style.transform=`translate(-50%,-50%) scale(${r})`;
+    });
+    requestAnimationFrame(anim);
+  })();
+}
+
+/* ══════════════════════════════════════
+   QUIZ
+   ══════════════════════════════════════ */
+const quizData=[
+  {
+    cat:'love', label:'\u2661 Love Question',
+    q:'\uC900\uC12D\uC774 理紗を初めて見た瞬間、感じたことは？',
+    opts:[
+      'あ、同じ分野の研究者だ',
+      '本当にときめいて、素敵で賢い人だなって',
+      '特に何も感じなかった',
+      '早く帰りたいなって思った'
+    ],
+    ans:1,
+    fb:'一目見た瞬間から、心臓が止まらなかった。理紗は本当に眩しかった。'
+  },
+  {
+    cat:'love', label:'\u2661 Love Question',
+    q:'\uC900\uC12D\uC774 理紗に一番期待していることは？',
+    opts:[
+      'ノーベル賞を取ること',
+      '毎日手料理を作ってくれること',
+      'これからも一生、日常を一緒に過ごすこと',
+      '100か国を一緒に旅すること'
+    ],
+    ans:2,
+    fb:'特別なことじゃなくていい。理紗と過ごす普通の毎日が、僕にとっては一番の幸せ。'
+  },
+  {
+    cat:'neuro', label:'\uD83E\uDDE0 Neuroscience',
+    q:'恋に落ちた時、脳で最も活発になる報酬系の領域は？',
+    opts:[
+      '海馬（Hippocampus）',
+      '扁桃体（Amygdala）',
+      '腹側被蓋野（VTA）',
+      '前頭前皮質（Prefrontal Cortex）'
+    ],
+    ans:2,
+    fb:'正解！VTA（腹側被蓋野）はドーパミンを大量に放出して、恋の「高揚感」を生み出す。理紗を見るたびに僕のVTAは大暴走中。'
+  },
+  {
+    cat:'neuro', label:'\uD83E\uDDE0 Neuroscience',
+    q:'恋人と抱きしめ合う時に分泌される「愛情ホルモン」の正式名称は？',
+    opts:[
+      'アドレナリン（Adrenaline）',
+      'セロトニン（Serotonin）',
+      'エンドルフィン（Endorphin）',
+      'オキシトシン（Oxytocin）'
+    ],
+    ans:3,
+    fb:'オキシトシンは「抱擁ホルモン」とも呼ばれ、信頼と絆を深める。理紗とハグすると、僕の体中がオキシトシンで満たされる。'
+  },
+  {
+    cat:'love', label:'\u2661 Final Question',
+    q:'では最後に。\uC900\uC12D\uC774 理紗を見ると分泌されるホルモンは？',
+    opts:[
+      'ドーパミン（ときめき）',
+      'オキシトシン（安心感）',
+      'セロトニン（幸福感）',
+      '全部。理紗を見ると全部溢れ出す。'
+    ],
+    ans:3,
+    fb:'理紗を見た瞬間、ときめきも安心も幸せも全部。科学的に説明できないくらい、理紗が好き。'
+  }
+];
+
+let curQ=0, answered=false;
+
+function renderDots(){
+  const w=document.getElementById('quiz-dots'); w.innerHTML='';
+  quizData.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='q-dot'+(i===curQ?' active':'')+(i<curQ?' done':'');
+    w.appendChild(d);
+  });
+}
+
+function renderQ(){
+  const q=quizData[curQ];
+  const area=document.getElementById('q-area');
+  const cc=q.cat==='love'?'cat-love':'cat-neuro';
+
+  let oh='';
+  q.opts.forEach((o,i)=>{ oh+=`<div class="q-opt" onclick="pickAns(${i})">${o}</div>`; });
+
+  area.innerHTML=`
+    <p class="q-label">QUESTION ${curQ+1} / ${quizData.length}</p>
+    <p class="q-category ${cc}">${q.label}</p>
+    <p class="q-text">${q.q}</p>
+    <div class="q-options">${oh}</div>
+    <p class="q-feedback" id="qfb"></p>
+    <button class="q-next" id="qnxt" onclick="goNext()">次へ →</button>
+  `;
+  answered=false;
+  renderDots();
+}
+
+function pickAns(idx){
+  if(answered) return;
+  answered=true;
+  const q=quizData[curQ];
+  const opts=document.querySelectorAll('.q-opt');
+  const fb=document.getElementById('qfb');
+  const nxt=document.getElementById('qnxt');
+
+  opts.forEach(o=>o.style.pointerEvents='none');
+
+  if(idx===q.ans){
+    opts[idx].classList.add('correct');
+    fb.textContent=q.fb;
+    fb.classList.add('show');
+    nxt.classList.add('show');
+  } else {
+    opts[idx].classList.add('wrong');
+    setTimeout(()=>{
+      opts[idx].classList.remove('wrong');
+      opts.forEach(o=>o.style.pointerEvents='auto');
+      answered=false;
+      fb.textContent='もう一回考えてみて… ✦';
+      fb.classList.add('show');
+      setTimeout(()=>fb.classList.remove('show'),1500);
+    },700);
+  }
+}
+
+function goNext(){
+  curQ++;
+  if(curQ<quizData.length){
+    renderQ();
+  } else {
+    document.getElementById('quiz-container').style.display='none';
+    const gs=document.getElementById('game-section');
+    gs.classList.add('show');
+    gs.scrollIntoView({behavior:'smooth'});
+    initGame();
+  }
+}
+
+renderQ();
+
+/* ══════════════════════════════════════
+   MINI GAME
+   ══════════════════════════════════════ */
+function initGame(){
+  const wrap=document.getElementById('game-wrap');
+  const cv=document.getElementById('game-cv');
+  const c=cv.getContext('2d');
+  let cw,ch,dpr;
+
+  function resize(){
+    dpr=window.devicePixelRatio||1;
+    cw=wrap.clientWidth; ch=wrap.clientHeight;
+    cv.width=cw*dpr; cv.height=ch*dpr;
+    cv.style.width=cw+'px'; cv.style.height=ch+'px';
+    c.setTransform(dpr,0,0,dpr,0,0);
+  }
+  resize();
+
+  let items=[],caught=0,mx=cw/2,my=ch/2,active=true,particles=[];
+  const R=28;
+
+  function spawn(){
+    if(!active)return;
+    const type=Math.random()>0.3?'star':'heart';
+    items.push({
+      x:Math.random()*(cw-40)+20, y:-20,
+      size:Math.random()*6+10,
+      vy:Math.random()*1.2+0.8,
+      wobble:Math.random()*Math.PI*2,
+      ws:Math.random()*0.025+0.01,
+      type
+    });
+  }
+
+  function drawStar5(x,y,r){
+    c.save(); c.translate(x,y);
+    c.beginPath();
+    for(let i=0;i<10;i++){
+      const rad=(i*Math.PI)/5-Math.PI/2;
+      const rr=i%2===0?r:r*0.45;
+      if(i===0)c.moveTo(Math.cos(rad)*rr,Math.sin(rad)*rr);
+      else c.lineTo(Math.cos(rad)*rr,Math.sin(rad)*rr);
+    }
+    c.closePath();
+    c.fillStyle='rgba(240,216,168,0.9)';
+    c.shadowColor='rgba(240,216,168,0.4)';
+    c.shadowBlur=12;
+    c.fill(); c.restore();
+  }
+
+  function drawHeart(x,y,sz){
+    c.save(); c.translate(x,y);
+    const s=sz/16;
+    c.beginPath();
+    c.moveTo(0,s*4);
+    c.bezierCurveTo(-s*2,-s*2,-s*12,-s*2,-s*12,-s*6);
+    c.bezierCurveTo(-s*12,-s*12,0,-s*14,0,-s*8);
+    c.bezierCurveTo(0,-s*14,s*12,-s*12,s*12,-s*6);
+    c.bezierCurveTo(s*12,-s*2,s*2,-s*2,0,s*4);
+    c.fillStyle='rgba(212,118,154,0.85)';
+    c.shadowColor='rgba(212,118,154,0.4)';
+    c.shadowBlur=10;
+    c.fill(); c.restore();
+  }
+
+  function burst(x,y){
+    for(let i=0;i<10;i++){
+      particles.push({
+        x,y,
+        vx:(Math.random()-0.5)*5,
+        vy:(Math.random()-0.5)*5-2,
+        life:1,
+        sz:Math.random()*3+1.5,
+        col:Math.random()>0.5?'126,200,216':'240,216,168'
+      });
+    }
+  }
+
+  wrap.addEventListener('mousemove',e=>{
+    const r=wrap.getBoundingClientRect();
+    mx=e.clientX-r.left; my=e.clientY-r.top;
+  });
+  wrap.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    const r=wrap.getBoundingClientRect();
+    mx=e.touches[0].clientX-r.left;
+    my=e.touches[0].clientY-r.top;
+  },{passive:false});
+
+  let tick=0;
+
+  function loop(){
+    c.clearRect(0,0,cw,ch);
+
+    if(active){
+      tick++;
+      if(tick%35===0) spawn();
+
+      c.beginPath(); c.arc(mx,my,R+10,0,Math.PI*2);
+      c.fillStyle='rgba(126,200,216,0.03)'; c.fill();
+
+      c.beginPath(); c.arc(mx,my,R,0,Math.PI,false);
+      c.strokeStyle='rgba(126,200,216,0.5)'; c.lineWidth=1.5; c.stroke();
+
+      c.beginPath(); c.arc(mx,my,R+4,0,Math.PI,false);
+      c.strokeStyle='rgba(126,200,216,0.1)'; c.lineWidth=6; c.stroke();
+
+      for(let i=items.length-1;i>=0;i--){
+        const it=items[i];
+        it.y+=it.vy;
+        it.wobble+=it.ws;
+        it.x+=Math.sin(it.wobble)*1.2;
+
+        if(it.type==='star') drawStar5(it.x,it.y,it.size);
+        else drawHeart(it.x,it.y,it.size);
+
+        const dist=Math.hypot(it.x-mx,it.y-my);
+        if(dist<R+it.size){
+          items.splice(i,1);
+          caught++;
+          document.getElementById('star-count').textContent=caught;
+          burst(it.x,it.y);
+          if(caught>=10){
+            active=false;
+            setTimeout(()=>{
+              document.getElementById('game-done').style.display='block';
+            },500);
+          }
+          continue;
+        }
+        if(it.y>ch+30) items.splice(i,1);
+      }
+    }
+
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.life-=0.02;
+      if(p.life<=0){particles.splice(i,1);continue;}
+      c.beginPath(); c.arc(p.x,p.y,p.sz*p.life,0,Math.PI*2);
+      c.fillStyle=`rgba(${p.col},${p.life})`; c.fill();
+    }
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+/* ══════════ FINALE ══════════ */
+document.getElementById('finale-btn').addEventListener('click',()=>{
+  const f=document.getElementById('finale');
+  f.classList.add('show');
+  f.scrollIntoView({behavior:'smooth'});
+  initPetals();
+});
+
+function initPetals(){
+  const cv=document.getElementById('petal-cv');
+  const c=cv.getContext('2d');
+  let W,H; let items=[];
+
+  function resize(){
+    W=cv.width=window.innerWidth;
+    H=cv.height=window.innerHeight;
+  }
+  resize();
+
+  function make(){
+    const isPetal=Math.random()>0.3;
+    return {
+      x:Math.random()*W, y:-15,
+      sz:isPetal?Math.random()*8+5:Math.random()*1.5+0.5,
+      vy:isPetal?Math.random()*1+0.4:Math.random()*0.3+0.1,
+      vx:(Math.random()-0.5)*0.6,
+      rot:Math.random()*Math.PI*2,
+      rs:(Math.random()-0.5)*0.02,
+      a:isPetal?Math.random()*0.4+0.2:Math.random()*0.5+0.3,
+      type:isPetal?'petal':'star',
+      col:isPetal?
+        (Math.random()>0.5?'240,192,208':'247,212,224'):
+        (Math.random()>0.7?'126,200,216':'230,226,240')
+    };
+  }
+
+  for(let i=0;i<80;i++){
+    const p=make(); p.y=Math.random()*H; items.push(p);
+  }
+
+  function draw(){
+    c.clearRect(0,0,W,H);
+    if(items.length<120 && Math.random()<0.2) items.push(make());
+    for(let i=items.length-1;i>=0;i--){
+      const p=items[i];
+      p.y+=p.vy;
+      p.x+=p.vx+Math.sin(p.y*0.008)*0.3;
+      p.rot+=p.rs;
+      if(p.y>H+20){items[i]=make();continue;}
+
+      c.save();
+      c.translate(p.x,p.y);
+      c.rotate(p.rot);
+      c.globalAlpha=p.a;
+
+      if(p.type==='petal'){
+        c.beginPath();
+        c.ellipse(0,0,p.sz,p.sz*0.5,0,0,Math.PI*2);
+        c.fillStyle=`rgba(${p.col},1)`; c.fill();
+      } else {
+        c.beginPath();
+        c.arc(0,0,p.sz,0,Math.PI*2);
+        c.fillStyle=`rgba(${p.col},1)`; c.fill();
+      }
+      c.restore();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+  window.addEventListener('resize',resize);
+}
+</script>
+</body>
+</html>
